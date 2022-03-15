@@ -1,11 +1,10 @@
-import Questions from './components/Questions';
-import './App.scss';
+import TabList from './components/TabList';
+import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Frequently Asked Questions</h1>
-      <Questions />
+      <TabList />
     </div>
   );
 }
