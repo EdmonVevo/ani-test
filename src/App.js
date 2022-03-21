@@ -1,5 +1,5 @@
-import TabList from './components/TabList';
-import './App.css';
+import TabList from 'components/TabList';
+import 'App.scss';
 
 const App = () => {
   return (

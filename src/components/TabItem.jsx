@@ -2,34 +2,29 @@ import React from 'react'
 
 const TabItem = ({ tabList, currentTab }) => {
     return (
-        <div>
-            <table className='tbl'>
-                <thead>
-                    <tr>
-                        <th>Property</th>
-                        <th>Address</th>
-                        <th>Amount</th>
-                        <th>Buyer</th>
-                    </tr>
-                </thead>
-                {
-                    tabList.map((tab, index) => {
-                        if (tab.id === currentTab) {
-                            return (
-                                <tbody key={index}>
-                                    <tr>
-                                        <td>{tab.property}</td>
-                                        <td>{tab.address}</td>
-                                        <td>{tab.amount}</td>
-                                        <td>{tab.buyer}</td>
-                                    </tr>
-                                </tbody>
-                            )
-                        }
-                    })
-                }
-            </table>
-        </div>
+        tabList.length !== 0 ? tabList.map(tab => {
+            if (tab.id === currentTab) {
+                return (
+                    <tbody key={tab.id}>
+                        <tr className='tblRow'>
+                            <td className='tblData'>{tab.property}</td>
+                            <td className='tblData'>{tab.address}</td>
+                            <td className='tblData'>{tab.amount}</td>
+                            <td className='tblData'>{tab.buyer}</td>
+                        </tr>
+                    </tbody>
+                )
+            }
+        })
+            :
+            <tbody>
+                <tr className='tblRow'>
+                    <td className='tblData'>no data</td>
+                    <td className='tblData'>no data</td>
+                    <td className='tblData'>no data</td>
+                    <td className='tblData'>no data</td>
+                </tr>
+            </tbody>
     )
 }
 
