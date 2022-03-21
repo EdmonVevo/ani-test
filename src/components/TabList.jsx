@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import TabItem from './TabItem';
+import React, { useState } from 'react';
+import classNames from 'classnames';
+import TabItem from 'components/TabItem';
 
 const TabList = () => {
 
-    const [currentTab, setCurrentTab] = useState('tab1');
     const tabList = [
         {
             id: 'tab1',
@@ -22,22 +22,40 @@ const TabList = () => {
             buyer: 'invesco'
         }
     ];
+    const [currentTab, setCurrentTab] = useState(tabList.length !== 0 ? tabList[0].id : '');
 
     return (
         <>
-            <div className="tabs">
-                {
-                    tabList.map((tab, index) => (
-                        <div
-                            key={index}
+            <nav className="tabs">
+                {tabList.length !== 0 ?
+                    tabList.map(tab => (
+                        <a
+                            href={`#${tab.id}`}
+                            key={tab.id}
                             onClick={() => setCurrentTab(tab.id)}
-                            className={(tab.id === currentTab) ? 'active' : ''}>
+                            className={classNames({
+                                active: tab.id === currentTab,
+                                tabData: tab.id !== currentTab
+                            })}>
                             {tab.tabName}
-                        </div>
+                        </a>
                     ))
+                    :
+                    <div>No Data</div>
                 }
-            </div>
-            <TabItem tabList={tabList} currentTab={currentTab} />
+                <div className="animation start"></div>
+            </nav>
+            <table className='tbl'>
+                <thead>
+                    <tr className='tblRow'>
+                        <th className='tblHead'>Property</th>
+                        <th className='tblHead'>Address</th>
+                        <th className='tblHead'>Amount</th>
+                        <th className='tblHead'>Buyer</th>
+                    </tr>
+                </thead>
+                <TabItem tabList={tabList} currentTab={currentTab} />
+            </table>
         </>
     )
 }
