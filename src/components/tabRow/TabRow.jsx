@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import 'components/tabRow/TabRow.scss';
 
-const TabItem = ({ tabList, currentTab }) => {
+const TabRow = ({ tabList, currentTab, tblHead }) => {
     return (
         tabList.length !== 0 ? tabList.map(tab => {
             if (tab.id === currentTab) {
@@ -17,15 +18,11 @@ const TabItem = ({ tabList, currentTab }) => {
             }
         })
             :
-            <tbody>
-                <tr className='tblRow'>
-                    <td className='tblData'>no data</td>
-                    <td className='tblData'>no data</td>
-                    <td className='tblData'>no data</td>
-                    <td className='tblData'>no data</td>
-                </tr>
-            </tbody>
+            tblHead.map(tbl => (
+                <td className='tblData'>no data</td>
+            ))
+
     )
 }
 
-export default TabItem;
+export default TabRow;

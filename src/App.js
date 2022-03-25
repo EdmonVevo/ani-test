@@ -1,5 +1,4 @@
-import TabList from 'components/TabList';
-import 'App.scss';
+import TabList from 'components/tabList/TabList';
 
 const App = () => {
   return (
