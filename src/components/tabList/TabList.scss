@@ -18,7 +18,7 @@
         margin-left: calc($value * 130px);
     }
 
-    @for $i from 0 through 4 {
+    @for $i from 0 through 10 {
         #tab-#{$i}.active ~ .underline {
             @include margin-left($i);
         }
