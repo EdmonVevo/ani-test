@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import classNames from 'classnames';
 import TabRow from 'components/tabRow/TabRow';
 import './TabList.scss';
@@ -39,7 +39,7 @@ const TabList = () => {
     },
     {
       id: 'tab-3',
-      tabName: 'New Tab',
+      tabName: 'Custom Tabname for Testing',
       property: 'nor',
       address: 'nor',
       amount: '$nor',
@@ -49,26 +49,26 @@ const TabList = () => {
 
   const [tblHead, setTblHead] = useState(initialTblHeaders);
   const [currentTab, setCurrentTab] = useState(tabList.length !== 0 ? tabList[0].id : '');
+  const lineRef = useRef(null);
+  const items = useRef([]);
 
   useEffect(() => {
-    const items = document.querySelectorAll('.tabs');
-    const underline = document.querySelector('.tabs .underline');
     const active = document.querySelector('.tabData.active');
 
-    underline.style.left = active.offsetLeft + 'px';
-    underline.style.width = active.offsetWidth + 'px';
+    lineRef.current.style.left = active.offsetLeft + 'px';
+    lineRef.current.style.width = active.offsetWidth + 'px';
 
     function line(e) {
-      underline.style.left = e.offsetLeft + 'px';
-      underline.style.width = e.offsetWidth + 'px';
+      lineRef.current.style.left = e.offsetLeft + 'px';
+      lineRef.current.style.width = e.offsetWidth + 'px';
     }
 
-    items.forEach(item => {
+    items.current.forEach(item => {
       item.addEventListener('click', (e) => {
         line(e.target)
       });
     });
-  }, [])
+  }, [tabList])
 
   return (
     <>
@@ -80,6 +80,7 @@ const TabList = () => {
               id={tab.id}
               onClick={() => setCurrentTab(tab.id)}
               className={classNames({ 'tabData active': tab.id === currentTab, 'tabData': tab.id !== currentTab })}
+              ref={items[tab.id]}
             >
               {tab.tabName}
             </span>
@@ -87,7 +88,7 @@ const TabList = () => {
           :
           <div className='noData'>No Data</div>
         }
-        <div className="underline"></div>
+        <div className="underline" ref={lineRef}></div>
       </div>
       <table className='tbl'>
         <thead>
