@@ -50,20 +50,16 @@ const TabList = () => {
   const [tblHead, setTblHead] = useState(initialTblHeaders);
   const [currentTab, setCurrentTab] = useState(tabList.length !== 0 ? tabList[0].id : '');
   const lineRef = useRef(null);
-  const items = useRef([]);
+  const activeTabRef = useRef(null);
 
-  const handleClick = (tab) => {
-    setCurrentTab(tab.id)
-    lineRef.current.style.left = tab.offsetLeft + 'px';
-    lineRef.current.style.width = tab.offsetWidth + 'px';
+  const handleCalculateLinePosition = (element) => {
+    lineRef.current.style.left = element.current.offsetLeft + 'px';
+    lineRef.current.style.width = element.current.offsetWidth + 'px';
   }
 
   useEffect(() => {
-    const active = document.querySelector('.tabData.active');
-
-    lineRef.current.style.left = active.offsetLeft + 'px';
-    lineRef.current.style.width = active.offsetWidth + 'px';
-  }, []);
+    handleCalculateLinePosition(activeTabRef);
+  }, [currentTab]);
 
   return (
     <>
@@ -73,9 +69,9 @@ const TabList = () => {
             <span
               key={tab.id}
               id={tab.id}
-              onClick={e => handleClick(e.target)}
+              onClick={() => setCurrentTab(tab.id)}
               className={classNames({ 'tabData active': tab.id === currentTab, 'tabData': tab.id !== currentTab })}
-              ref={items[tab.id]}
+              ref={tab.id === currentTab ? activeTabRef : null}
             >
               {tab.tabName}
             </span>
