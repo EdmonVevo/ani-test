@@ -52,23 +52,18 @@ const TabList = () => {
   const lineRef = useRef(null);
   const items = useRef([]);
 
+  const handleClick = (tab) => {
+    setCurrentTab(tab.id)
+    lineRef.current.style.left = tab.offsetLeft + 'px';
+    lineRef.current.style.width = tab.offsetWidth + 'px';
+  }
+
   useEffect(() => {
     const active = document.querySelector('.tabData.active');
 
     lineRef.current.style.left = active.offsetLeft + 'px';
     lineRef.current.style.width = active.offsetWidth + 'px';
-
-    function line(e) {
-      lineRef.current.style.left = e.offsetLeft + 'px';
-      lineRef.current.style.width = e.offsetWidth + 'px';
-    }
-
-    items.current.forEach(item => {
-      item.addEventListener('click', (e) => {
-        line(e.target)
-      });
-    });
-  }, [tabList])
+  }, []);
 
   return (
     <>
@@ -78,7 +73,7 @@ const TabList = () => {
             <span
               key={tab.id}
               id={tab.id}
-              onClick={() => setCurrentTab(tab.id)}
+              onClick={e => handleClick(e.target)}
               className={classNames({ 'tabData active': tab.id === currentTab, 'tabData': tab.id !== currentTab })}
               ref={items[tab.id]}
             >

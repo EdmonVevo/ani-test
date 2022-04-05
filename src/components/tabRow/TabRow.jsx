@@ -13,10 +13,9 @@ const TabRow = ({ tabList, currentTab, tblHead }) => {
         return (
           <tbody key={tab.id}>
             <tr className='tblRow'>
-              <td className='tblData'>{tab.property}</td>
-              <td className='tblData'>{tab.address}</td>
-              <td className='tblData'>{tab.amount}</td>
-              <td className='tblData'>{tab.buyer}</td>
+              {tblHead.map((tbl, index) => (
+                <td className='tblData' key={index}>{tab[(tbl.head).toLowerCase()]}</td>
+              ))}
             </tr>
           </tbody>
         )
