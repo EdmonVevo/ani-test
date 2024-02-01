@@ -7,7 +7,8 @@ const initialTblHeaders = [
   { head: 'Property' },
   { head: 'Address' },
   { head: 'Amount' },
-  { head: 'Buyer' }
+  { head: 'Buyer' },
+  { head: 'Example' }
 ];
 
 const TabList = () => {
